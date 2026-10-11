@@ -1,0 +1,20 @@
+
+{
+  "schemaVersion": 1,
+  "id": "pojavxdrayx",
+  "version": "1.0.0",
+  "name": "PojavXDrayx Client",
+  "description": "A lightweight red-and-black Minecraft PvP client.",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.pojavxdrayx.client.PojavXDrayxClient"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
