@@ -1,6 +1,5 @@
-name: Build PojavXDrayx Client
-
-on:
+name: PojavXDrayx Client Build
+'on':
 workflow_dispatch:
 push:
 branches:
@@ -8,39 +7,25 @@ branches:
 
 jobs:
 build:
-name: Compile Minecraft Client
 runs-on: ubuntu-latest
-
 steps:
-  - name: Checkout source
-    uses: actions/checkout@v4
+- uses: actions/checkout@v4
 
-  - name: Set up Java 25
-    uses: actions/setup-java@v4
+  - uses: actions/setup-java@v4
     with:
       distribution: temurin
       java-version: '25'
 
-  - name: Set up Gradle
-    uses: gradle/actions/setup-gradle@v4
+  - uses: gradle/actions/setup-gradle@v4
     with:
       gradle-version: '9.7.1'
 
-  - name: Diagnose project files
+  - name: Show project files
     run: |
-      echo "=== Repository root ==="
-      pwd
-      echo "=== Files found in repository ==="
-      find . -maxdepth 8 -type f \
-        -not -path './.git/*' | sort
-      echo "=== Checking required files ==="
-      for file in \
-        build.gradle \
-        settings.gradle \
-        gradle.properties \
-        src/main/resources/fabric.mod.json \
-        src/main/java/com/pojavxdrayx/client/PojavXDrayxClient.java
-      do
+      echo "=== Repository files ==="
+      find . -maxdepth 8 -type f -not -path './.git/*' | sort
+      echo "=== Required files ==="
+      for file in build.gradle settings.gradle gradle.properties src/main/resources/fabric.mod.json src/main/java/com/pojavxdrayx/client/PojavXDrayxClient.java; do
         if [ -f "$file" ]; then
           echo "FOUND: $file"
         else
@@ -51,7 +36,7 @@ steps:
   - name: Build client
     run: gradle build --no-daemon --stacktrace
 
-  - name: Upload compiled JAR
+  - name: Upload JAR
     if: success()
     uses: actions/upload-artifact@v4
     with:
