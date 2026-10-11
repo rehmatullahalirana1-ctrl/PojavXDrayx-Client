@@ -1,8 +1,8 @@
 name: PojavXDrayx Build
 'on': workflow_dispatch
 jobs:
-build:
-runs-on: ubuntu-latest
-steps:
-- name: Test workflow
-run: echo "Workflow YAML is valid"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test workflow
+        run: echo "Workflow YAML is valid"
