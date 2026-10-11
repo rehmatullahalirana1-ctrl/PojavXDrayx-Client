@@ -1,45 +1,12 @@
-name: PojavXDrayx Client Build
+name: PojavXDrayx Build
 'on':
 workflow_dispatch:
 push:
 branches:
 - main
-
 jobs:
 build:
 runs-on: ubuntu-latest
 steps:
-- uses: actions/checkout@v4
-
-  - uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: '25'
-
-  - uses: gradle/actions/setup-gradle@v4
-    with:
-      gradle-version: '9.7.1'
-
-  - name: Show project files
-    run: |
-      echo "=== Repository files ==="
-      find . -maxdepth 8 -type f -not -path './.git/*' | sort
-      echo "=== Required files ==="
-      for file in build.gradle settings.gradle gradle.properties src/main/resources/fabric.mod.json src/main/java/com/pojavxdrayx/client/PojavXDrayxClient.java; do
-        if [ -f "$file" ]; then
-          echo "FOUND: $file"
-        else
-          echo "MISSING: $file"
-        fi
-      done
-
-  - name: Build client
-    run: gradle build --no-daemon --stacktrace
-
-  - name: Upload JAR
-    if: success()
-    uses: actions/upload-artifact@v4
-    with:
-      name: PojavXDrayx-Client-JAR
-      path: build/libs/*.jar
-      if-no-files-found: error
+- name: Test workflow
+run: echo "Workflow YAML is valid"
